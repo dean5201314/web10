@@ -2,13 +2,13 @@
 date_default_timezone_set("Asia/Taipei");
 session_start();
 class DB{
-
+    // 設定 Data Source Name $dsn 連線參數，protected 宣告限定自己和子類別可以使用
     // protected $dsn = "mysql:host=localhost;charset=utf8;dbname=bquiz";
     protected $dsn = "mysql:host=localhost;charset=utf8;dbname=db10";
 
     protected $pdo;
     protected $table;
-    
+    // 建立 類別的建構子方法(函式)
     public function __construct($table)
     {
         $this->table=$table;
@@ -17,12 +17,12 @@ class DB{
 
     }
 
-
+    // 建立 讀取資料表所有資料內容的方法
     function all( $where = '', $other = '')
     {
-        $sql = "select * from `$this->table` ";
-        $sql =$this->sql_all($sql,$where,$other);
-        return  $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        $sql = "select * from `$this->table` ";     //指令內容- select * from table
+        $sql =$this->sql_all($sql,$where,$other);   //更新指令為- select * from table $where $other...
+        return  $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);    //回傳的資料表所有資料內容
     }
 
     function count( $where = '', $other = ''){
