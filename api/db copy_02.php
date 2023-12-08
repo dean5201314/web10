@@ -3,18 +3,16 @@ date_default_timezone_set("Asia/Taipei");
 session_start();
 class DB{
 
-    protected $dsn = "mysql:host=localhost;charset=utf8;dbname=bquiz";
-    // protected $dsn = "mysql:host=localhost;charset=utf8;dbname=db10"; 
-
+    protected $dsn = "mysql:host=localhost;charset=utf8;dbname=db91";
+    //protected $dsn = "mysql:host=localhost;charset=utf8;dbname=bquiz";
     protected $pdo;
     protected $table;
     
     public function __construct($table)
     {
         $this->table=$table;
+        //$this->pdo=new PDO($this->dsn,'s1120401','s1120401');
         $this->pdo=new PDO($this->dsn,'root','');
-        // $this->pdo=new PDO($this->dsn,'s1120410','s1120410');
-
     }
 
 
@@ -54,9 +52,7 @@ class DB{
             $sql .= " where " . join(" && ", $tmp);
         } else if (is_numeric($id)) {
             $sql .= " where `id`='$id'";
-        } else {
-            echo "錯誤:參數的資料型態比須是數字或陣列";
-        }
+        } 
         //echo 'find=>'.$sql;
         $row = $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $row;
@@ -68,9 +64,7 @@ class DB{
     
             if (!empty($array)) {
                 $tmp = $this->a2s($array);
-            } else {
-                echo "錯誤:缺少要編輯的欄位陣列";
-            }
+            } 
         
             $sql .= join(",", $tmp);
             $sql .= " where `id`='{$array['id']}'";
@@ -94,9 +88,7 @@ class DB{
             $sql .= join(" && ", $tmp);
         } else if (is_numeric($id)) {
             $sql .= " `id`='$id'";
-        } else {
-            echo "錯誤:參數的資料型態比須是數字或陣列";
-        }
+        } 
         //echo $sql;
     
         return $this->pdo->exec($sql);
@@ -135,14 +127,13 @@ class DB{
             // echo 'all=>'.$sql;
             // $rows = $this->pdo->query($sql)->fetchColumn();
             return $sql;
-        } else {
-            echo "錯誤:沒有指定的資料表名稱";
-        }
+        } 
     }
 
 }
 
-function dd($array){
+function dd($array)
+{
     echo "<pre>";
     print_r($array);
     echo "</pre>";
@@ -153,5 +144,4 @@ function to($url){
 
 $Title=new DB('titles');
 $Total=new DB('total');
-
 ?>
