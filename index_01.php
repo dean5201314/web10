@@ -29,18 +29,17 @@
                         	1                        </span>
                     </div>
         		</div>
+				<?php
+				// $do=(isset($_GET['do']))?$_GET['do']:'main'; 此行指令極端簡化後可用下行指令代替
+				$do=$_GET['do']??'main';
+				$file= "./front/{$do}.php";
+				if(file_exists($file)){
+					include $file;
+				}else{
+					include "./front/main.php";
+				}
+				?>
 
-				<?php 
-
-					$do=$_GET['do']??'main';
-					$file="./front/{$do}.php";
-					if(file_exists($file)){
-						include $file;
-					}else{
-						include "./front/main.php";	
-					}
-
-					?>
                 <div id="alt" style="position: absolute; width: 350px; min-height: 100px; word-break:break-all; text-align:justify;  background-color: rgb(255, 255, 204); top: 50px; left: 400px; z-index: 99; display: none; padding: 5px; border: 3px double rgb(255, 153, 0); background-position: initial initial; background-repeat: initial initial;"></div>
                     	<script>
 						$(".sswww").hover(
