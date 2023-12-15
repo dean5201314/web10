@@ -13,7 +13,7 @@
                 </tr>
                 <?php
 
-                $rows=$DB->all(['menu_id'=>0]);
+                $rows=$DB->all();
                 foreach($rows as $row){
                 ?>
                 <tr>
