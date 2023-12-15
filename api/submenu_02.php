@@ -16,15 +16,13 @@ if(isset($_POST['id'])){
 
 if(isset($_POST['add_text'])){
     foreach($_POST['add_text'] as $idx =>$text){
-        if($text!=""){
-            $data=[];
-            $data['text']=$text;
-            $data['href']=$_POST['href'][$idx];
-            $data['sh']=1;
-            $data['menu_id']=$_POST['menu_id'];
-    
-            $Menu->save($data);
-        }
+        $data=[];
+        $data['text']=$text;
+        $data['href']=$_POST['href'][$idx];
+        $data['sh']=1;
+        $data['menu_id']=$_POST['menu_id'];
+
+        $Menu->save($data);
     }
 }
 

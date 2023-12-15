@@ -114,17 +114,21 @@ class DB
         if (isset($array['id'])) {
             //初始 SQL指令內容為： update TABLE set  
             $sql = "update `$this->table` set ";
-
+            //若 $array陣列不是空的(有值)
             if (!empty($array)) {
+                //則將陣列元素轉換成字串(array to string)->"`$col`='$value'"
                 $tmp = $this->a2s($array);
             } else {
                 echo "錯誤:缺少要編輯的欄位陣列";
             }
-
+            //串接 SQL指令內容成為： update TABLE set `$col`='$value',`$col`='$value'... 
             $sql .= join(",", $tmp);
+            //串接 SQL指令內容成為： update TABLE set `$col`='$value',`$col`='$value'...  where `id`='{$array['id']}'
+            //以符合 UPDATE 的 SQL 語法
             $sql .= " where `id`='{$array['id']}'";
         //如果 $array陣列中沒有'id'的欄位，則新增資料到資料表中
         } else {
+            //初始 SQL指令內容為： insert into TABLE  
             $sql = "insert into `$this->table` ";
             $cols = "(`" . join("`,`", array_keys($array)) . "`)";
             $vals = "('" . join("','", $array) . "')";
@@ -218,8 +222,21 @@ $News = new DB('news');
 $Admin = new DB('admin');
 $Menu = new DB('menu');
 
-if (isset($_GET['do'])) {
-    $DB = ${ucfirst($_GET['do'])};
-} else {
-    $DB = $Title;
+// if (isset($_GET['do'])) {
+//     $DB = ${ucfirst($_GET['do'])};
+// } else {
+//     $DB = $Title;
+// }
+
+$tables=array_keys(get_defined_vars());
+/* dd($tables); */
+if(isset($_GET['do'])){
+    $key=ucfirst($_GET['do']);
+    if(in_array($key,$tables)){
+        $DB=$$key;
+    }
+}else{
+    $DB=$Title;
 }
+
+?>
