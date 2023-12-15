@@ -130,12 +130,16 @@ class DB
         } else {
             //初始 SQL指令內容為： insert into TABLE  
             $sql = "insert into `$this->table` ";
+            //串接 $cols = (`col1`,`col2`,`col3`,...)
             $cols = "(`" . join("`,`", array_keys($array)) . "`)";
+            //串接 $vals = ('value1','value2','value3',...)
             $vals = "('" . join("','", $array) . "')";
-
+            //INSERT INTO `TABLE`(`col1`,`col2`,`col3`,...) VALUES('value1','value2','value3',...);
+            //以符合 INSERT INTO 的 SQL 語法
             $sql = $sql . $cols . " values " . $vals;
         }
-
+        
+        //回傳 exec($sql) 執行結果
         return $this->pdo->exec($sql);
     }
 
@@ -222,18 +226,29 @@ $News = new DB('news');
 $Admin = new DB('admin');
 $Menu = new DB('menu');
 
+//第一版 未排除['do']值非資料表變數
 // if (isset($_GET['do'])) {
 //     $DB = ${ucfirst($_GET['do'])};
 // } else {
 //     $DB = $Title;
 // }
 
-$tables=array_keys(get_defined_vars());
-/* dd($tables); */
-if(isset($_GET['do'])){
-    $key=ucfirst($_GET['do']);
-    if(in_array($key,$tables)){
-        $DB=$$key;
+//第二版 排除['do']值非資料表變數
+// $tables=array_keys(get_defined_vars());
+// /* dd($tables); */
+// if(isset($_GET['do'])){
+//     $key=ucfirst($_GET['do']);
+//     if(in_array($key,$tables)){
+//         $DB=$$key;
+//     }
+// }else{
+//     $DB=$Title;
+// }
+
+//第三版 排除['do']值非資料表變數
+if(isset($_GET['do'])){   
+    if(isset(${ucfirst($_GET['do'])})){
+        $DB=${ucfirst($_GET['do'])};
     }
 }else{
     $DB=$Title;
