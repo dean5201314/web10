@@ -143,13 +143,19 @@ class DB
         return $this->pdo->exec($sql);
     }
 
+    //建立 依資料表主鍵或特定條件篩選，到 DB的資料表中刪除特定資料的方法
     function del($id)
     {
+        //初始 SQL指令內容為： delete from TABLE where   
         $sql = "delete from `$this->table` where ";
-
+        //如果 $array陣列中有'id'的欄位，則刪除多筆資料
         if (is_array($id)) {
+            //則將陣列元素轉換成字串(array to string)->"`$col`='$value'"
             $tmp = $this->a2s($id);
+            //串接 SQL指令內容成為： delete from TABLE where `$col`='$value' && `$col`='$value'...
+            //以符合 delete 的 SQL 語法
             $sql .= join(" && ", $tmp);
+            //如果傳入的 id是數值，則直接執行刪除的 SQL指令
         } else if (is_numeric($id)) {
             $sql .= " `id`='$id'";
         } else {
