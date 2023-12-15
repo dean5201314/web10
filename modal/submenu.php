@@ -1,4 +1,4 @@
-<h3>新增次選單</h3>
+<h3>編輯次選單</h3>
 <hr>
 <form action="./api/submenu.php" method="post" enctype="multipart/form-data">
 <table class='cent'>
