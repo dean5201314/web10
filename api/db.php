@@ -269,3 +269,12 @@ if (isset($_GET['do'])) {
 } else {
     $DB = $Title;
 }
+
+// 若先前未定義 $_SESSION['visited']，代表新一次進站，則將 進站人數 + 1
+if(!isset($_SESSION['visited'])){
+    $Total->q("update `total` set `total`=`total`+1 where `id`=1");
+    $_SESSION['visited']=1;     //若將 $_SESSION['visited']=0，isset()判斷結果會變成 null，造成誤判
+
+}
+
+?>
