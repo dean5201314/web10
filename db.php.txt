@@ -269,3 +269,5 @@ if (isset($_GET['do'])) {
 } else {
     $DB = $Title;
 }
+
+?>
