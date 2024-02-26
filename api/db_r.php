@@ -10,7 +10,7 @@ session_start();
 class DB
 {
     // 設定 Data Source Name $dsn 連線參數，protected 宣告限定自己和子類別可以使用
-    protected $dsn = "mysql:host=localhost;charset=utf8;dbname=db10";
+    protected $dsn = "mysql:host=localhost;charset=utf8;dbname=s1120410";
 
     // 資料庫連接物件 - PDO：PHP Data Objects 在PHP裡連接資料庫的使用介面
     protected $pdo;     //宣告 class內部資料庫連接物件變數
@@ -22,7 +22,7 @@ class DB
         //將外部傳入的參數 $table 設定給 class內部屬性變數 $this->table 
         $this->table = $table;
         //建立 PDO物件(連接資料庫的使用介面) 設定給 class內部物件變數 $this->pdo
-        $this->pdo = new PDO($this->dsn, 'root', '');
+        $this->pdo = new PDO($this->dsn, 's1120410', 's1120410');
     }
 
     // 建立 讀取資料表所有資料內容的方法並回傳執行得到之所有結果
