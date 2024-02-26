@@ -137,7 +137,7 @@ class DB{
     /**檢查及處理所有的參數 */
     function check($arg){
         $arg=htmlspecialchars($arg);
-        return $arg;
+        return ;
     }
 
 }
